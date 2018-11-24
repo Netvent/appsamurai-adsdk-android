@@ -36,6 +36,11 @@ dependencies {
 ```
 
 ## Initialization
+### Required Permissions
+As you can guest you need internet permission to get and show ads. Ad this line to AndroidManifest.xml if you have it alreeady.
+``` xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
 ### SDK Initialization
 ```java
 @Override
@@ -65,16 +70,25 @@ MobileAds.setLogLevel(Level.WARNING)
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-// disable logs
-MobileAds.setLogLevel(Level.OFF)
-    MobileAds.initialize(getApplicationContext(), "<app-id>");
-}
+    // disable logs
+    MobileAds.setLogLevel(Level.OFF)
+        MobileAds.initialize(getApplicationContext(), "<app-id>");
+    }
 ```
+You can user "AppSamurai" to filter AppSamurai Ad SDK logs. 
 
+## Possible Ad Request Error Cases
+If you want to take action according to ad request error cases
+```java
+ERROR_CODE_INTERNAL_ERROR = 0;
+ERROR_CODE_INVALID_REQUEST = 1;
+ERROR_CODE_NETWORK_ERROR = 2;
+ERROR_CODE_NO_FILL = 3;
+```
 ## Banner Integration
 You have two options to create AdView:
-### Step 1 : You have two options to create AdView
-#### Option 1: Creating AdView from Layout and reaching this view from code
+#### Step 1 : You have two options to create AdView
+##### Option 1: Creating AdView from Layout and reaching this view from code
 Create AdView from Layout and reach this view from code
 ``` xml
 <com.appsamurai.ads.banner.AdView
@@ -88,7 +102,7 @@ Create AdView from Layout and reach this view from code
 ``` java
 AdView mAdView = findViewById(R.id.adView);
 ```
-#### Option 2: Creating AdView programmatically and adding this view to a container view
+##### Option 2: Creating AdView programmatically and adding this view to a container view
 ``` java
 mAdView = new AdView(this);
 mAdView.setAdUnitId("<ad-unit-id>");
@@ -98,12 +112,12 @@ params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 adContainer.addView(mAdView, params);
 ```
 
-### Step 2 : Create and load request
+#### Step 2 : Create and load request
 ``` java
 AdRequest adRequest = new AdRequest.Builder().build();
 mAdView.loadAd(adRequest);
 ```
-### Step 3 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
+#### Step 3 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
 ``` java
 mAdView.setAdListener(new AdListener() {
     @Override
@@ -128,8 +142,8 @@ mAdView.setAdListener(new AdListener() {
 });
 ```
 
-## Interstitial Integration
-### Step 1: Create an InterstitialAd
+### Interstitial Integration
+#### Step 1: Create an InterstitialAd
 ``` java
 private InterstitialAd mInterstitialAd;
 ```
@@ -137,17 +151,17 @@ private InterstitialAd mInterstitialAd;
 mInterstitialAd = new InterstitialAd(context);
 ```
 
-### Step 2: Set the ad unit id
+#### Step 2: Set the ad unit id
 ``` java
 mInterstitialAd.setAdUnitId("<ad-unit-id>");
 ```
-### Step 3: Create and load request
+#### Step 3: Create and load request
 ``` java
 AdRequest adRequest = new AdRequest.Builder().build();
 mInterstitialAd.loadAd(adRequest);
 ```
 
-### Step 4 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
+#### Step 4 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
 ``` java
 mInterstitialAd.setAdListener(new AdListener() {
     @Override
@@ -172,31 +186,31 @@ mInterstitialAd.setAdListener(new AdListener() {
 });
 ```
 
-### Step 5: Show the interstitial whenever you want if it is loaded
+#### Step 5: Show the interstitial whenever you want if it is loaded
 ``` java
 if (mInterstitialAd.isLoaded()) {
     mInterstitialAd.show();
 }
 ```
 
-## Rewarded Video Integration
-### Step 1: Create an InterstitialAd
+### Rewarded Video Integration
+#### Step 1: Create an InterstitialAd
 ``` java
 private RewardedVideoAd mRewardedVideoAd;
 ```
 ``` java
 mRewardedVideoAd = new InterstitialAd(context);
 ```
-### Step 2: Set the ad unit id
+#### Step 2: Set the ad unit id
 ``` java
 mRewardedVideoAd.setAdUnitId("<ad-unit-id>");
 ```
-### Step 3: Create and load request
+#### Step 3: Create and load request
 ``` java
 AdRequest adRequest = new AdRequest.Builder().build();
 mRewardedVideoAd.loadAd(adRequest);
 ```
-### Step 4 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
+#### Step 4 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
 ``` java
 mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
     @Override
@@ -232,10 +246,9 @@ mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
     }
 });
 ```
-### Step 5: Show the interstitial whenever you want if it is loaded
+#### Step 5: Show the interstitial whenever you want if it is loaded
 ``` java
 if (mRewardedVideoAd.isLoaded()) {
     mRewardedVideoAd.show();
 }
 ```
-
