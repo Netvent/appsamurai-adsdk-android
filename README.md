@@ -13,7 +13,7 @@ The App Samurai AD SDK is available via:
    }
 
    dependencies {
-       implementation 'com.appsamurai.adsdk:core:0.2.7'
+       implementation 'com.appsamurai.adsdk:core:0.2.8'
    }
    ```
     
@@ -70,8 +70,8 @@ MobileAds.setLogLevel(Level.WARNING)
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    // disable logs
-    MobileAds.setLogLevel(Level.OFF)
+        // disable logs
+        MobileAds.setLogLevel(Level.OFF)
         MobileAds.initialize(getApplicationContext(), "<app-id>");
     }
 ```
@@ -104,8 +104,11 @@ AdView mAdView = findViewById(R.id.adView);
 ```
 ##### Option 2: Creating AdView programmatically and adding this view to a container view
 ``` java
+// create an adview and set ad unit id
 mAdView = new AdView(this);
-mAdView.setAdUnitId("<ad-unit-id>");
+mAdView.setAdUnitId("nnrgOQ4JmLRCuphTYTkRvg");
+
+// create a layout params and add ad view to the container view with this layout params
 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(320), Utils.dpToPx(50));
 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
@@ -114,28 +117,35 @@ adContainer.addView(mAdView, params);
 
 #### Step 2 : Create and load request
 ``` java
+// create an ad request and load ad with this ad request
 AdRequest adRequest = new AdRequest.Builder().build();
 mAdView.loadAd(adRequest);
 ```
 #### Step 3 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
 ``` java
+// set an AdListener in order to track the state of the ad
 mAdView.setAdListener(new AdListener() {
+    // Code to be executed when an ad finishes loading.
     @Override
     public void onAdLoaded() {
     }
-
+    
+    // Code to be executed when an ad request fails.
     @Override
     public void onAdFailedToLoad(int errorCode) {
     }
-
+    
+    // Code to be executed when an ad opens an overlay that covers the screen.
     @Override
     public void onAdOpened() {
     }
-
+    
+    // Code to be executed when the user has left the app.
     @Override
     public void onAdLeftApplication() {
     }
-
+    
+    // Code to be executed when when the user is about to return to the app after tapping on an ad.
     @Override
     public void onAdClosed() {
     }
@@ -145,49 +155,61 @@ mAdView.setAdListener(new AdListener() {
 ### Interstitial Integration
 #### Step 1: Create an InterstitialAd
 ``` java
+// Add an InterstitialAd field
 private InterstitialAd mInterstitialAd;
 ```
 ``` java
-mInterstitialAd = new InterstitialAd(context);
+// Create an InterstitialAd instance
+mInterstitialAd = new InterstitialAd(this);
 ```
 
 #### Step 2: Set the ad unit id
 ``` java
+// Set Ad Unit ID
 mInterstitialAd.setAdUnitId("<ad-unit-id>");
 ```
 #### Step 3: Create and load request
 ``` java
+// Create an AdRequest and load ad with this AdRequest
 AdRequest adRequest = new AdRequest.Builder().build();
 mInterstitialAd.loadAd(adRequest);
 ```
 
 #### Step 4 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
 ``` java
+// Set an AdListener in order to track the state of the ad
 mInterstitialAd.setAdListener(new AdListener() {
+
+    // Code to be executed when an ad finishes loading.
     @Override
     public void onAdLoaded() {
     }
 
+    // Code to be executed when an ad request fails.
     @Override
     public void onAdFailedToLoad(int errorCode) {
     }
 
+    // Code to be executed when an ad opens an overlay that covers the screen.
     @Override
     public void onAdOpened() {
     }
 
-    @Override
-    public void onAdLeftApplication() {
-    }
-
+    // Code to be executed when when the user is about to return to the app after tapping on an ad.
     @Override
     public void onAdClosed() {
+    }
+
+    // Code to be executed when the user has left the app.
+    @Override
+    public void onAdLeftApplication() {
     }
 });
 ```
 
 #### Step 5: Show the interstitial whenever you want if it is loaded
 ``` java
+// Before showing interstitial check if it is loaded
 if (mInterstitialAd.isLoaded()) {
     mInterstitialAd.show();
 }
@@ -196,58 +218,74 @@ if (mInterstitialAd.isLoaded()) {
 ### Rewarded Video Integration
 #### Step 1: Create an InterstitialAd
 ``` java
+// Add an RewardedVideoAd field
 private RewardedVideoAd mRewardedVideoAd;
 ```
 ``` java
+// Create an RewardedVideoAd instance
 mRewardedVideoAd = new InterstitialAd(context);
 ```
 #### Step 2: Set the ad unit id
 ``` java
+// Set Ad Unit ID
 mRewardedVideoAd.setAdUnitId("<ad-unit-id>");
 ```
 #### Step 3: Create and load request
 ``` java
+// Create an AdRequest and load ad with this AdRequest
 AdRequest adRequest = new AdRequest.Builder().build();
 mRewardedVideoAd.loadAd(adRequest);
 ```
 #### Step 4 ( Optional ) : Set an Ad Listener if you want to listen the callback methods
 ``` java
+// set an AdListener in order to track the state of the ad
 mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+
+    // Code to be executed when an ad finishes loading.
     @Override
     public void onRewardedVideoAdLoaded() {
     }
 
+    // Code to be executed when an ad request fails.
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int errorCode) {
+    }
+
+    // Code to be executed when the ad is displayed.
     @Override
     public void onRewardedVideoAdOpened() {
     }
 
+    // Code to be executed when the video is started.
     @Override
     public void onRewardedVideoStarted() {
     }
 
+    // Code to be executed when the user has gained the reward.
     @Override
-    public void onRewardedVideoAdClosed() {
+    public void onRewarded() {
     }
 
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-    }
-
+    // Code to be executed when the user has left the app.
     @Override
     public void onRewardedVideoAdLeftApplication() {
     }
 
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-    }
-
+    // Code to be executed when the video is completed.
     @Override
     public void onRewardedVideoCompleted() {
     }
+
+    // Code to be executed when when the ad is closed.
+    @Override
+    public void onRewardedVideoAdClosed() {
+    }
+
 });
 ```
 #### Step 5: Show the interstitial whenever you want if it is loaded
 ``` java
+// Before showing interstitial check if it is loaded
 if (mRewardedVideoAd.isLoaded()) {
     mRewardedVideoAd.show();
 }
