@@ -1,5 +1,9 @@
 
 # App Samurai Ad SDK
+
+## Sample Projects
+Check samples directory for sample **Java** and **Kotlin** projects. 
+
 ## Download
 The App Samurai AD SDK is available via:
 
@@ -290,3 +294,6 @@ if (mRewardedVideoAd.isLoaded()) {
     mRewardedVideoAd.show();
 }
 ```
+
+## Kotlin Developers
+Check samples directory for sample Kotlin project.
