@@ -1,6 +1,8 @@
 
 # App Samurai Ad SDK
 
+[![alt text](https://appsamurai.com/wp-content/uploads/2018/10/as_dark_logotype-8.png "AppSamurai")](https://www.appsamurai.com)
+
 ## Sample Projects
 Check samples directory for sample **Java** and **Kotlin** projects. 
 
@@ -297,3 +299,7 @@ if (mRewardedVideoAd.isLoaded()) {
 
 ## Kotlin Developers
 Check samples directory for sample Kotlin project.
+
+[![alt text](https://appsamurai.com/wp-content/uploads/2014/12/web_home_cta_2.png "AppSamurai")](https://www.appsamurai.com)
+
+
