@@ -3,6 +3,8 @@
 
 [![alt text](https://appsamurai.com/wp-content/uploads/2018/10/as_dark_logotype-8.png "AppSamurai")](https://www.appsamurai.com)
 
+# Easy And Effective App Monetization
+
 ## Sample Projects
 Check samples directory for sample **Java** and **Kotlin** projects. 
 
