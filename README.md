@@ -17,7 +17,7 @@ The App Samurai AD SDK is available via:
    }
 
    dependencies {
-       implementation 'com.appsamurai.adsdk:core:0.2.8'
+       implementation 'com.appsamurai.adsdk:core:0.2.9'
    }
    ```
     
@@ -80,6 +80,28 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 ```
 You can user "AppSamurai" to filter AppSamurai Ad SDK logs. 
+
+## Adding test devices
+If you want to test your SDK integration without using live app id and ad unit ids, you can add your device as test device.
+
+To see your device ID check the logcat output for a message that looks like this
+```
+D/AppSamurai: Use AdRequest.Builder.addTestDevice("YXBwc20tEzGiNDU5YzVlZWM3NzA4Zg==") to get test ads on this device.
+```
+
+Modify your code to call AdRequest.Builder.addTestDevice() with your test device ID. This method can be called multiple times for multiple devices.
+```
+AdRequest adRequest = new AdRequest.Builder()
+.addTestDevice("YXBwc20tEzGiNDU5YzVlZWM3NzA4Zg==") // an example device ID
+.build();
+```
+
+If you properly set your device as test device, at logcat you will seee a message that looks like this
+```
+D/AppSamurai: This request will be sent from a test device.
+```
+
+***Note*** : Android emulators are automatically configured as test devices.
 
 ## Possible Ad Request Error Cases
 If you want to take action according to ad request error cases
