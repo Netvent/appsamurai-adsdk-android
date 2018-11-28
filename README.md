@@ -253,7 +253,7 @@ private RewardedVideoAd mRewardedVideoAd;
 ```
 ``` java
 // Create an RewardedVideoAd instance
-mRewardedVideoAd = new InterstitialAd(context);
+mRewardedVideoAd = new RewardedVideoAd(context);
 ```
 #### Step 2: Set the ad unit id
 ``` java
