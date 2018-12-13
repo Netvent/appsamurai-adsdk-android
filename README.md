@@ -21,10 +21,18 @@ The App Samurai AD SDK is available via:
    }
 
    dependencies {
-       implementation 'com.appsamurai.adsdk:core:0.2.9'
+       implementation 'com.appsamurai.adsdk:core:3.0.1'
    }
    ```
-    
+
+## Supported SDK Versions
+Minimum supported SDK version is 15. Be sure that minSdkVersion in your gradle file isn't lower than 15.
+
+## SDK Version
+You can get current version of the SDK with getSDKVersion method.
+```java
+String sdkVersion = MobileAds.getSDKVersion();
+```
 ## Requirements
 
 - Android 4.0.4 (API Version 15) and up
@@ -181,6 +189,8 @@ mAdView.setAdListener(new AdListener() {
     }
 });
 ```
+#### Supported Banner Sizes
+So far the only supported banner size is 320 x 50. 
 
 ### Interstitial Integration
 #### Step 1: Create an InterstitialAd
@@ -244,6 +254,9 @@ if (mInterstitialAd.isLoaded()) {
     mInterstitialAd.show();
 }
 ```
+
+#### Supported Media Formats
+Interstial ad type supports both HTML and video ad formats. But AdListener methods are identical for both HTML and video.
 
 ### Rewarded Video Integration
 #### Step 1: Create an InterstitialAd
@@ -325,5 +338,3 @@ if (mRewardedVideoAd.isLoaded()) {
 Check samples directory for sample Kotlin project.
 
 [![alt text](https://appsamurai.com/wp-content/uploads/2014/12/web_home_cta_2.png "AppSamurai")](https://www.appsamurai.com)
-
-
