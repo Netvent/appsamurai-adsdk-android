@@ -19,14 +19,14 @@
             android:layout_height="wrap_content"
             android:onClick="loadVideoAd"
             android:minWidth="240dp"
-            android:text="Load Interstitial Ad" />
+            android:text="Load Rewarded Video Ad" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="showVideoAd"
             android:minWidth="240dp"
-            android:text="Show Interstitial Ad" />
+            android:text="Show Rewarded Video Ad" />
 
     </LinearLayout>
 
