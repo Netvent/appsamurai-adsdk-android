@@ -21,7 +21,7 @@ The App Samurai AD SDK is available via:
    }
 
    dependencies {
-       implementation 'com.appsamurai.adsdk:core:3.0.1'
+       implementation 'com.appsamurai.adsdk:core:0.3.3'
    }
    ```
 
@@ -40,6 +40,8 @@ String sdkVersion = MobileAds.getSDKVersion();
 - retrofit v2.4.0 ( available on JCenter )
 - converter-gson v2.4.0 ( available on JCenter )
 - **Recommended** Google Play Services Ads 15.0.1
+- omsdk-android-<version>-Appsamurai ( Open Measurement SDK led by IAB )
+
 
 
 ### Add Play Service Ads for Personalized Ads
