@@ -27,7 +27,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     // Be sure that you are using latest version
-    implementation 'com.appsamurai.adsdk:core:1.0.0'
+    implementation 'com.appsamurai.adsdk:core:1.1.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 

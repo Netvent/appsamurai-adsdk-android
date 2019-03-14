@@ -33,7 +33,7 @@ class InterstitialAdActivity : AppCompatActivity() {
         mInterstitialAd!!.adUnitId = adUnitId
 
         // Set an AdListener in order to track the state of the ad
-        mInterstitialAd!!.adListener = object : AdListener() {
+        mInterstitialAd!!.setAdListener(object : AdListener() {
 
             // Code to be executed when an ad finishes loading.
             override fun onAdLoaded() {
@@ -59,7 +59,7 @@ class InterstitialAdActivity : AppCompatActivity() {
             override fun onAdLeftApplication() {
                 Log.d(Utils.LOGTAG, "Ad Left Application: $adUnitId")
             }
-        }
+        })
     }
 
     fun loadInterstitial(view: View) {
