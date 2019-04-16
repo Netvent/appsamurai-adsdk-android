@@ -101,13 +101,13 @@ If you want to test your SDK integration without using live app id and ad unit i
 
 To see your device ID check the logcat output for a message that looks like this
 ```
-D/AppSamurai: Use AdRequest.Builder.addTestDevice("YXBwc20tEzGiNDU5YzVlZWM3NzA4Zg==") to get test ads on this device.
+D/AppSamurai: Use AdRequest.Builder.addTestDevice("<Device ID>") to get test ads on this device.
 ```
 
 Modify your code to call AdRequest.Builder.addTestDevice() with your test device ID. This method can be called multiple times for multiple devices.
 ```
 AdRequest adRequest = new AdRequest.Builder()
-.addTestDevice("YXBwc20tEzGiNDU5YzVlZWM3NzA4Zg==") // an example device ID
+.addTestDevice("<Device ID>") // an example device ID
 .build();
 ```
 
@@ -147,13 +147,22 @@ AdView mAdView = findViewById(R.id.adView);
 ``` java
 // create an adview and set ad unit id
 mAdView = new AdView(this);
-mAdView.setAdUnitId("nnrgOQ4JmLRCuphTYTkRvg");
+mAdView.setAdUnitId("<ad-unit-id>");
 
 // create a layout params and add ad view to the container view with this layout params
 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(320), Utils.dpToPx(50));
 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 adContainer.addView(mAdView, params);
+```
+
+Here is the helper method that you can use in order to convert dp to px
+``` java
+public static int dpToPx(int dp) {
+    DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+    int px = (int) (dp * displayMetrics.density + .5f);
+    return px;
+}
 ```
 
 #### Step 2 : Create and load request
@@ -193,7 +202,64 @@ mAdView.setAdListener(new AdListener() {
 });
 ```
 #### Supported Banner Sizes
-So far the only supported banner size is 320 x 50. 
+Supported banner sizes are 320x50 ( BANNER ) and 300x250 ( MEDIUM_RECTANGLE ). 
+
+#### Medium Rectangle Banner ( 300x250 )
+For 300x250 banner size you must manually set ad sizes with two options. 
+
+##### Option 1
+Set width and height with layout_width and layout_height and than set ads:adSize to MEDIUM_RECTANGLE. Default value for ads:adSize is BANNER ( 320x50 )
+
+``` xml
+<com.appsamurai.ads.banner.AdView
+    ............
+    android:layout_width="300dp"
+    android:layout_height="250dp"
+    ads:adSize="MEDIUM_RECTANGLE"
+    ............ >
+```
+
+##### Option 2
+Second option is setting width and height of the container layout of the banner programmatically and than setting ad size with AdView.setAdSize(AdSize.MEDIUM_RECTANGLE) method.
+
+``` java
+// create an adview and set ad unit id
+mAdView = new AdView(this);
+mAdView.setAdUnitId("<ad-unit-id>");
+mAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
+
+// create a layout params and add ad view to the container view with this layout params
+RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.dpToPx(300), Utils.dpToPx(250));
+params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+adContainer.addView(mAdView, params);
+```
+
+#### Disabling Banner Auto Refresh
+By default content of the banner is refreshed periodically. If you want to disable banner auto refresh you have two options
+
+##### Option 1
+From layout
+
+``` xml
+<com.appsamurai.ads.banner.AdView
+    ............
+    ads:autoLoadEnabled="false"
+    ............ >
+```
+
+##### Option 2
+Programmatically
+``` java
+    private AdView mAdView;
+
+    ......
+    mAdView = new AdView(this);
+    mAdView.setAdUnitId("<ad-unit-id>");
+    mAdView.setAutoLoadEnabled(false);
+    ......
+```
+
 
 ### Interstitial Integration
 #### Step 1: Create an InterstitialAd
