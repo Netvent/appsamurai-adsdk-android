@@ -30,10 +30,10 @@ class InterstitialAdActivity : AppCompatActivity() {
         // Create an InterstitialAd instance and set Ad Unit ID
         mInterstitialAd = InterstitialAd(this)
         val adUnitId = "nnrgOQ8JmbRCupYRQyNQwg"
-        mInterstitialAd!!.adUnitId = adUnitId
+        mInterstitialAd?.adUnitId = adUnitId
 
         // Set an AdListener in order to track the state of the ad
-        mInterstitialAd!!.setAdListener(object : AdListener() {
+        mInterstitialAd?.setAdListener(object : AdListener() {
 
             // Code to be executed when an ad finishes loading.
             override fun onAdLoaded() {
@@ -65,13 +65,13 @@ class InterstitialAdActivity : AppCompatActivity() {
     fun loadInterstitial(view: View) {
         // Create an AdRequest and load ad with this AdRequest
         val adRequest = AdRequest.Builder().build()
-        mInterstitialAd!!.loadAd(adRequest)
+        mInterstitialAd?.loadAd(adRequest)
     }
 
     fun showInterstitial(view: View) {
         // Before showing interstitial check if it is loaded
-        if (mInterstitialAd!!.isLoaded) {
-            mInterstitialAd!!.show()
+        if (mInterstitialAd?.isLoaded!!) {
+            mInterstitialAd?.show()
         } else {
             Log.d(Utils.LOGTAG, "Interstitial was not ready to be shown.")
         }

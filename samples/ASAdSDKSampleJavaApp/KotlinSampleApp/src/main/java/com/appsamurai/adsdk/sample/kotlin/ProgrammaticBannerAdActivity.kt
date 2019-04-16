@@ -27,20 +27,20 @@ class ProgrammaticBannerAdActivity : AppCompatActivity() {
 
         // create an adview and set ad unit id
         mAdView = AdView(this)
-        mAdView!!.adUnitId = "nnrgOQ4JmLRCuphTYTkRvg"
+        mAdView?.adUnitId = "nnrgOQ4JmLRCuphTYTkRvg"
 
         // create a layout params and add ad view to the container view with this layout params
         val params = RelativeLayout.LayoutParams(Utils.dpToPx(320), Utils.dpToPx(50))
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
         params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
-        adContainer!!.addView(mAdView, params)
+        adContainer?.addView(mAdView, params)
 
         // create an ad request and load ad with this ad request
         val adRequest = AdRequest.Builder().build()
-        mAdView!!.loadAd(adRequest)
+        mAdView?.loadAd(adRequest)
 
         // set an AdListener in order to track the state of the ad
-        mAdView!!.adListener = object : AdListener() {
+        mAdView?.adListener = object : AdListener() {
             // Code to be executed when an ad finishes loading.
             override fun onAdLoaded() {
                 Log.d(Utils.LOGTAG, "Ad Loaded: " + mAdView!!.adUnitId)

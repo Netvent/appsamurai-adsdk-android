@@ -22,7 +22,7 @@ The App Samurai AD SDK is available via:
 
    dependencies {
        // Be sure that you are using latest version
-       implementation 'com.appsamurai.adsdk:core:1.0.0'
+       implementation 'com.appsamurai.adsdk:core:1.2.1'
    }
    ```
 

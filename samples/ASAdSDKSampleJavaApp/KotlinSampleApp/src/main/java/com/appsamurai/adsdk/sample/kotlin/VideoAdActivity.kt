@@ -25,10 +25,10 @@ class VideoAdActivity : AppCompatActivity() {
         // Create an RewardedVideoAd instance and set Ad Unit ID
         mRewardedVideoAd = RewardedVideoAd(this)
         val adUnitId = "nnrgOQwJmrRCuppxWA0Q_A"
-        mRewardedVideoAd!!.adUnitId = adUnitId
+        mRewardedVideoAd?.adUnitId = adUnitId
 
         // set an AdListener in order to track the state of the ad
-        mRewardedVideoAd!!.setRewardedVideoAdListener(object : RewardedVideoAdListener() {
+        mRewardedVideoAd?.setRewardedVideoAdListener(object : RewardedVideoAdListener() {
 
             // Code to be executed when an ad finishes loading.
             override fun onRewardedVideoAdLoaded() {
@@ -76,13 +76,13 @@ class VideoAdActivity : AppCompatActivity() {
     fun loadVideoAd(view: View) {
         // Create an AdRequest and load ad with this AdRequest
         val adRequest = AdRequest.Builder().build()
-        mRewardedVideoAd!!.loadAd(adRequest)
+        mRewardedVideoAd?.loadAd(adRequest)
     }
 
     fun showVideoAd(view: View) {
         // Before showing interstitial check if it is loaded
-        if (mRewardedVideoAd!!.isLoaded) {
-            mRewardedVideoAd!!.show()
+        if (mRewardedVideoAd?.isLoaded!!) {
+            mRewardedVideoAd?.show()
         }
     }
 }

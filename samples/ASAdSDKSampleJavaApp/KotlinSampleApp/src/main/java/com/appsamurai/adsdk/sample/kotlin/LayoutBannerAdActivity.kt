@@ -28,10 +28,10 @@ class LayoutBannerAdActivity : AppCompatActivity() {
 
         // create an ad request and load ad with this ad request
         val adRequest = AdRequest.Builder().build()
-        mAdView!!.loadAd(adRequest)
+        mAdView?.loadAd(adRequest)
 
         // set an AdListener in order to track the state of the ad
-        mAdView!!.adListener = object : AdListener() {
+        mAdView?.adListener = object : AdListener() {
             // Code to be executed when an ad finishes loading.
             override fun onAdLoaded() {
                 Log.d(Utils.LOGTAG, "Ad Loaded: " + mAdView!!.adUnitId)
