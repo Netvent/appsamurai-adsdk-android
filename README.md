@@ -9,15 +9,15 @@
 Check samples directory for sample **Java** and **Kotlin** projects. 
 
 ## Download
-The App Samurai AD SDK is available via:
+The App Samurai Ad SDK is available via:
 
 **JCenter AAR**
     [ ![Download](https://api.bintray.com/packages/appsamurai/maven/core/images/download.svg) ](https://bintray.com/appsamurai/maven/core/_latestVersion)  
-    The App Samurai AD SDK is available as an AAR via JCenter; to use it, add the following to your `build.gradle`.
+    The App Samurai Ad SDK is available as an AAR via JCenter; to use it, add the following to your `build.gradle`.
     
    ``` java
    repositories {
-       jcenter() // includes the App Samurai AD SDK
+       jcenter() // includes the App Samurai Ad SDK
    }
 
    dependencies {
@@ -400,6 +400,273 @@ mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
 // Before showing interstitial check if it is loaded
 if (mRewardedVideoAd.isLoaded()) {
     mRewardedVideoAd.show();
+}
+```
+
+# Using Google Ads with App Samurai Ads
+Google Ads is one of the most popular ad network that preferred by mobile application developers. If you want use App Samurai Ads but still needs a backup plan in order to maximize fill rate and eCPM, we have a ready to use solution for you AppSamurai Waterfall Ad SDK. By using App Samurai Waterfall Ad SDK we guarantee you to if App Samurai can't fill your ad request we will forward your request to Google Ads.
+
+Using App Samurai Waterfall SDK is very similar to App Samurai Ad SDK.
+
+## Adding AppSamurai Waterfall Ad SDK to Your Project
+**JCenter AAR**
+    [ ![Download](https://api.bintray.com/packages/appsamurai/maven/waterfall/images/download.svg) ](https://bintray.com/appsamurai/maven/waterfall/_latestVersion)  
+    The App Samurai Waterfall Ad SDK is available as an AAR via JCenter; to use it, add the following to your build.gradle.
+``` java
+repositories {
+    jcenter() // includes the App Samurai Ad SDK
+}
+
+dependencies {
+    // Be sure that you are using latest version
+    implementation 'com.appsamurai.adsdk:waterfall:0.1.0'
+}
+```
+
+
+## SDK Initializing
+```kotlin
+// class imports
+import com.appsamurai.waterfall.ad.MobileAds
+import com.appsamurai.waterfall.ad.AdNetwork
+
+// replace GOOGLE_ADS_APPLICATION_ID and APPSAMURAI_ADS_APPLICATION_ID 
+// with your application's AppSamurai Ads and Google Ads ids
+fun initializeSDK() {
+    MobileAds.initialize(this, hashMapOf(
+        AdNetwork.GOOGLE to "<GOOGLE_ADS_APPLICATION_ID>",
+        AdNetwork.APPSAMURAI to "<APPSAMURAI_ADS_APPLICATION_ID">
+    ))
+}
+```
+
+## Banner Integration
+### Step 1: Create Ad Container Layout
+First of all you need an ad container layout. You can create this container layout programatically or from xml layout. Here is an example xml layout. adContainer linear layout will be the container for your banner.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--  put your content container here -->
+
+    <!--  ad container  -->
+    <LinearLayout
+        android:id="@+id/adContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>
+```
+
+### Step 2: Defining a BannerAd
+``` kotlin
+// import list
+import com.appsamurai.ads.common.AdListener
+import com.appsamurai.ads.common.AdRequest
+import com.appsamurai.ads.common.AdSize
+import com.appsamurai.waterfall.ad.BannerAd
+import com.appsamurai.waterfall.ad.MobileAds
+import com.appsamurai.waterfall.ad.AdNetwork
+
+// defining a banner ad
+private var mBannerAd: BannerAd? = null
+```
+
+### Step 3: Creating the BannerAd
+``` kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    ...
+    
+    // creating the banner ad
+    // first parameter is the activity context and the second one is the ad container you defined in the layout
+    mBannerAd = BannerAd("<activity context>", adContainer)
+}
+```
+
+### Step 4: Setting ad unit ids
+``` kotlin
+mBannerAd?.adUnitIds?.put(AdNetwork.APPSAMURAI, "<APPSAMURAI_ADS_BANNER_ADUNIT_ID>")
+mBannerAd?.adUnitIds?.put(AdNetwork.GOOGLE, "<GOOGLE_ADS_BANNER_ADUNIT_ID>")
+```
+
+### Step 5: Setting Banner Size
+``` kotlin
+mBannerAd?.adSize = AdSize.BANNER
+```
+
+### Step 6: Setting AdListener ( optional )
+``` kotlin
+mBannerAd?.setAdListener(object : AdListener(){
+    // Code to be executed when an ad finishes loading.
+    override fun onAdLoaded() {
+    }
+
+    // Code to be executed when an ad request fails.
+    override fun onAdFailedToLoad(var1: Int) {
+    }
+
+    // Code to be executed when an ad opens an overlay that covers the screen.
+    override fun onAdOpened() {
+    }
+
+    // Code to be executed when the user has left the app.
+    override fun onAdLeftApplication() {
+    }
+
+    // Code to be executed when when the user is about to return to the app after tapping on an ad.
+    override fun onAdClosed() {
+    }
+})
+```
+
+### Step 7: Loading ad request
+``` kotlin
+val adRequest = AdRequest.Builder().build()
+mBannerAd?.loadAd(adRequest)
+```
+## Interstitial Integration
+### Step 1: Defining an InterstitialAd
+``` kotlin
+import com.appsamurai.ads.common.AdListener
+import com.appsamurai.ads.common.AdRequest
+import com.appsamurai.waterfall.ad.InterstitialAd
+import com.appsamurai.waterfall.ad.MobileAds
+import com.appsamurai.waterfall.ad.AdNetwork
+
+private var mInterstitialAd: InterstitialAd? = null
+```
+
+### Step 2: Creating the InterstitialAd
+``` kotlin
+mInterstitialAd = InterstitialAd(<activity context>)
+```
+
+### Step 3: Setting ad unit ids
+``` kotlin
+mInterstitialAd?.adUnitIds?.put(AdNetwork.APPSAMURAI, "<APPSAMURAI_ADS_INTERSTITIAL_ADUNIT_ID>")
+mInterstitialAd?.adUnitIds?.put(AdNetwork.GOOGLE, "<GOOGLE_ADS_INTERSTITIAL_ADUNIT_ID>")
+```
+
+### Step 4: Setting AdListener
+``` kotlin
+mInterstitialAd?.setAdListener(object : AdListener(){
+    // Code to be executed when an ad finishes loading.
+    override fun onAdLoaded() {
+    }
+
+    // Code to be executed when an ad request fails.
+    override fun onAdFailedToLoad(var1: Int) {
+    }
+
+    // Code to be executed when an ad opens an overlay that covers the screen.
+    override fun onAdOpened() {
+    }
+
+    // Code to be executed when the user has left the app.
+    override fun onAdLeftApplication() {
+    }
+
+    // Code to be executed when when the user is about to return to the app after tapping on an ad.
+    override fun onAdClosed() {
+    }
+})
+```
+### Step 5: Loading ad request
+``` kotlin
+val adRequest = AdRequest.Builder().build()
+mInterstitialAd?.loadAd(adRequest)
+```
+
+### Step 6: Showing ad
+In order to be notified when the ad is ready to shown you should override the onAdLoaded() method of the AdListener that you set to the InterstitialAd.
+```kotlin
+if (mInterstitialAd?.isLoaded!!) {
+    mInterstitialAd?.show()
+}
+```
+
+## Rewarded Integration
+Integration of the rewarded video ad is so similar to interstitial ad.
+
+### Step 1: Defining an RewardedAd
+``` kotlin
+import com.appsamurai.ads.reward.RewardedVideoAdListener
+import com.appsamurai.ads.common.AdRequest
+import com.appsamurai.waterfall.ad.RewardedAd
+import com.appsamurai.waterfall.ad.MobileAds
+import com.appsamurai.waterfall.ad.AdNetwork
+
+private var mRewardedAd: RewardedAd? = null
+```
+
+### Step 2: Creating the RewardedAd
+``` kotlin
+mRewardedAd = RewardedAd(<activity context>)
+```
+
+### Step 3: Setting ad unit ids
+``` kotlin
+mRewardedAd?.adUnitIds?.put(AdNetwork.APPSAMURAI, "<APPSAMURAI_ADS_REWARDED_ADUNIT_ID>")
+mRewardedAd?.adUnitIds?.put(AdNetwork.GOOGLE, "<GOOGLE_ADS_REWARDED_ADUNIT_ID>")
+```
+
+### Step 4: Setting AdListener
+``` kotlin
+mRewardedAd?.setAdListener(object : RewardedVideoAdListener(){
+    // Code to be executed when an ad finishes loading.
+    override fun onRewardedVideoAdLoaded() {
+    }
+
+    // Code to be executed when an ad request fails.
+    override fun onRewardedVideoAdFailedToLoad(errorCode: Int) {
+    }
+
+    // Code to be executed when the ad is displayed.
+    override fun onRewardedVideoAdOpened() {
+    }
+
+    // Code to be executed when the video is started.
+    override fun onRewardedVideoStarted() {
+    }
+
+    // Code to be executed when when the ad is closed.
+    override fun onRewardedVideoAdClosed() {
+    }
+
+    // Code to be executed when the user has gained the reward.
+    override fun onRewarded() {
+    }
+
+    // Code to be executed when the user has left the app.
+    override fun onRewardedVideoAdLeftApplication() {
+    }
+
+    // Code to be executed when the video is completed.
+    override fun onRewardedVideoCompleted() {
+    }
+})
+```
+### Step 5: Loading ad request
+``` kotlin
+val adRequest = AdRequest.Builder().build()
+mRewardedAd?.loadAd(adRequest)
+```
+
+### Step 6: Showing ad
+In order to be notified when the ad is ready to shown you should override the onRewardedVideoAdLoaded() method of the RewardedVideoAdListener that you set to the RewardedAd.
+```kotlin
+if (mRewardedAd?.isLoaded!!) {
+    mRewardedAd?.show()
 }
 ```
 
