@@ -403,8 +403,8 @@ if (mRewardedVideoAd.isLoaded()) {
 }
 ```
 
-# Using Google Ads with App Samurai Ads
-Google Ads is one of the most popular ad network that preferred by mobile application developers. If you want use App Samurai Ads but still needs a backup plan in order to maximize fill rate and eCPM, we have a ready to use solution for you AppSamurai Waterfall Ad SDK. By using App Samurai Waterfall Ad SDK we guarantee you to if App Samurai can't fill your ad request we will forward your request to Google Ads.
+# Using Google AdMob with App Samurai Ads
+Google AdMob is one of the most popular ad network that preferred by mobile application developers. If you want use App Samurai Ads but still needs a backup plan in order to maximize fill rate and eCPM, we have a ready to use solution for you AppSamurai Waterfall Ad SDK. By using App Samurai Waterfall Ad SDK we guarantee you to if App Samurai can't fill your ad request we will forward your request to Google AdMob.
 
 Using App Samurai Waterfall SDK is very similar to App Samurai Ad SDK.
 
@@ -422,9 +422,57 @@ dependencies {
     implementation 'com.appsamurai.adsdk:waterfall:0.1.0'
 }
 ```
+## Google AdMob Integration
+AppSamurai Waterfall Ad SDK helps you to use AppSamurai Ads and Google AdMob easily. But still you should import the AdMob Mobile Ads SDK and update your AndroidManifest.xml with YOUR_ADMOB_APP_ID.
+
+**Update project level build.gradle**
+``` java
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+```
+
+**update app-level build.gradle**
+``` java
+dependencies {
+    implementation 'com.google.android.gms:play-services-ads:17.2.1'
+}
+```
+
+**Update your AndroidManifest.xml**
+``` xml
+<manifest>
+    <application>
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="YOUR_ADMOB_APP_ID"/>
+    </application>
+</manifest>
+```
+
+Check latest version of Google AdMob Integration from the AdMob documentations. https://developers.google.com/admob/android/quick-start
+
+
 
 
 ## SDK Initializing
+update app-level build.gradle witk AppSamurai Core and Waterfall Ad SDKs
+**Note: Be sure that you are using latest versions**
+``` java
+dependencies {
+    implementation 'com.appsamurai.adsdk:core:1.4.1'
+    implementation ('com.appsamurai.adsdk:waterfall:0.1.2') {
+        exclude module: 'core'
+    }
+}
+```
+
+In order to initialize SDK you need to use MobileAds.initialize() method as early as possible. onCreate methods of the Application or MainActivity is the most proper place to initialize SDK.
+
 ```kotlin
 // class imports
 import com.appsamurai.waterfall.ad.MobileAds
